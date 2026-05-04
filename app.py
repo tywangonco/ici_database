@@ -206,11 +206,12 @@ ici_database = {
 }
 
 def format_citation(text):
-    """使用正規表達式將 和 [條文：XXX] 轉換為美化的 Markdown 標籤"""
+    """使用正規表達式將 [cite: ...] 和 [條文：XXX] 轉換為美化的 Markdown 標籤"""
     if not text:
         return ""
-    # 這是正確的 Regex，用來抓取[cite: 1] 或是[cite: 1, 2]
-    text = re.sub(r'\+)\]', r'**[健保給付規定第 \1 項]**', text)
+    # 處理 [cite: N] 格式
+    text = re.sub(r'\[cite:\s*(\d+(?:,\s*\d+)*)\]', r'**[參考 \1]**', text)
+    # 處理 [條文：XXX] 格式
     text = re.sub(r'\[條文：(.*?)\]', r'  *(依據：\1)* ', text)
     return text
 
