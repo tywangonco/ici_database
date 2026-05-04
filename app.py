@@ -209,7 +209,7 @@ def format_citation(text):
     """使用正規表達式將 和 [條文：XXX] 轉換為美化的 Markdown 標籤"""
     if not text:
         return ""
-    # 這裡修正了錯誤的正則表達式，完整補回了 的匹配邏輯
+    # 這是正確的 Regex，用來抓取[cite: 1] 或是[cite: 1, 2]
     text = re.sub(r'\+)\]', r'**[健保給付規定第 \1 項]**', text)
     text = re.sub(r'\[條文：(.*?)\]', r'  *(依據：\1)* ', text)
     return text
